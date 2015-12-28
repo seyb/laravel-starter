@@ -2,12 +2,10 @@
 
 namespace App;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Role;
 
-class User extends Authenticatable
+class User extends Role
 {
-    const ADMIN_ROLE = 1;
-    const WEBMASTER_ROLE = 2;
     /**
      * The attributes that are mass assignable.
      *
@@ -26,17 +24,8 @@ class User extends Authenticatable
         'password', 'remember_token', 'role'
     ];
 
-    /**
-     * @return bool
-     */
-    public function isAdmin () {
-        return $this->role == self::ADMIN_ROLE;
-    }
 
-    /**
-     * @return bool
-     */
-    public function isWebmaster () {
-        return $this->role == self::WEBMASTER_ROLE;
+    public function projects() {
+        return $this->hasMany(Project::class);
     }
 }
